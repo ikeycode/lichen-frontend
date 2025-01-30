@@ -31,3 +31,7 @@ Planned later:
 `lichen-frontend` is available under the terms of the [MPL-2.0](https://spdx.org/licenses/MPL-2.0.html)
 
 Our use of [Slint](https://slint.dev) is pursuant to the terms of the [Slint Royalty-free Desktop, Mobile, and Web Applications License](https://slint.dev/terms-and-conditions#royalty-free)
+
+### Artwork
+
+`ui/images/adwaita/*.svg` are created by/copyright of the [GNOME Project](https://www.gnome.org) and are licensed under the [CC-BY-SA-3.0](https://creativecommons.org/licenses/by-sa/3.0/) license.
