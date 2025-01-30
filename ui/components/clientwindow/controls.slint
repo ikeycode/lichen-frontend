@@ -1,0 +1,90 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { HorizontalBox, Palette } from "std-widgets.slint";
+
+// Styled window controls for the titlebar
+export component WindowControls {
+    // Rounded corner on titlebar controls clipped to draw area of titlebar
+    Rectangle {
+        clip: true;
+
+        Rectangle {
+            background: @linear-gradient(180deg, black.with-alpha(0.6) 0%, black.with-alpha(0.4) 100%);
+            border-radius: 12px;
+            width: parent.width * 2;
+            height: parent.height * 2;
+            x: 0px;
+            y: 0px - box.height;
+            border-color: black.with-alpha(0.05);
+            border-width: 1px;
+        }
+    }
+
+    height: 36px;
+    padding: 0px;
+
+    box := HorizontalBox {
+        spacing: 8px;
+        alignment: stretch;
+        width: parent.width;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 6px;
+
+        Rectangle {
+            width: 24px;
+            height: 24px;
+            background: min_ta.has-hover ? Palette.foreground.with-alpha(0.1) : transparent;
+            animate background {
+                duration: 250ms;
+            }
+            Image {
+                source: @image-url("../../images/adwaita/window-minimize-symbolic.svg");
+                colorize: white.with-alpha(0.8);
+            }
+            border-radius: 24px;
+            min_ta := TouchArea {
+                mouse-cursor: MouseCursor.pointer;
+                clicked => {
+                    root.visible = false;
+                }
+            }
+        }
+
+        Rectangle {
+            width: 24px;
+            height: 24px;
+            background: max_ta.has-hover ? Palette.foreground.with-alpha(0.1) : transparent;
+            animate background {
+                duration: 250ms;
+            }
+            Image {
+                source: @image-url("../../images/adwaita/window-maximize-symbolic.svg");
+                colorize: white.with-alpha(0.8);
+            }
+            border-radius: 24px;
+            max_ta := TouchArea {
+                mouse-cursor: MouseCursor.pointer;
+            }
+        }
+
+        Rectangle {
+            width: 24px;
+            height: 24px;
+            background: clo_ta.has-hover ? red.with-alpha(0.1) : transparent;
+            animate background {
+                duration: 250ms;
+            }
+            Image {
+                source: @image-url("../../images/adwaita/window-close-symbolic.svg");
+                colorize: white.with-alpha(0.8);
+            }
+            border-radius: 24px;
+            clo_ta := TouchArea {
+                mouse-cursor: MouseCursor.pointer;
+            }
+        }
+    }
+}

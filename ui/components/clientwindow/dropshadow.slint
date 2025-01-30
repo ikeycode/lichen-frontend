@@ -1,0 +1,14 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+// Simple drop shadow component
+export component DropShadow inherits Rectangle
+{
+    in-out property<brush> shadow-color: black.with-alpha(0.15);
+    background: transparent;
+    drop-shadow-blur: 8px;
+    drop-shadow-color: shadow-color;
+    drop-shadow-offset-x: 0px;
+    drop-shadow-offset-y: 0px;
+}

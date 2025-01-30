@@ -1,0 +1,29 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { VerticalBox } from "std-widgets.slint";
+export component ContentView
+{
+    in-out property <brush> backdrop-color: white.with-alpha(0.9);
+    in-out property <brush> backdrop-border-color: black.with-alpha(0.1);
+
+    padding: 0px;
+
+    // backdrop
+    Rectangle {
+        width: parent.width;
+        height: parent.height;
+        background: backdrop-color;
+        padding: 0px;
+        border-color: backdrop-border-color;
+        border-width: 1px;
+    }
+
+    VerticalBox {
+        alignment: stretch;
+        padding: 0px;
+
+        @children
+    }
+}
