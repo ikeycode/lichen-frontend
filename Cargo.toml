@@ -1,0 +1,11 @@
+[package]
+name = "lichen-frontend"
+version = "0.1.0"
+edition = "2021"
+license = "MPL-2.0 AND LicenseRef-Slint-Royalty-free-2.0"
+
+[dependencies]
+slint = { git = "https://github.com/slint-ui/slint.git", version = "1.10.0", features = ["backend-winit"]}
+
+[build-dependencies]
+slint-build = { git = "https://github.com/slint-ui/slint.git", version = "1.10.0" }
