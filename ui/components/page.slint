@@ -5,7 +5,7 @@
 import { HorizontalBox, VerticalBox } from "std-widgets.slint";
 
 // Generic page component
-export component GenericPage
+export component GenericPage inherits Rectangle
 {
     padding: 0px;
 
@@ -17,18 +17,19 @@ export component GenericPage
         alignment: start;
         spacing: 96px;
         padding: 0px;
+        padding-left: 96px;
 
         VerticalBox {
             alignment: center;
             padding: 0px;
             img := Image {
                 width: 256px;
-                padding: 96px;
+                padding-right: 96px;
             }
         }
 
         VerticalBox {
-            alignment: start;
+            alignment: center;
             spacing: 16px;
             padding: 0px;
             title := Text {
@@ -36,7 +37,6 @@ export component GenericPage
             }
 
             subtitle := Text {
-                text: "This will be used for the installer and the installed system.";
                 font-size: 16px;
             }
 
