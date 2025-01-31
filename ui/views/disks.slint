@@ -1,0 +1,30 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SP
+// DX-License-Identifier: MPL-2.0
+
+import { ComboBox, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+import { GenericPage } from "../components/index.slint";
+
+export component DiskPage inherits Rectangle
+{
+    padding: 0px;
+
+    in-out property<[string]> disks: ["/dev/sda", "/dev/sdb", "/dev/nvme0n1"];
+    in-out property can-go-back <=> page.can-go-back;
+    in-out property can-go-next <=> page.can-go-next;
+
+    callback on-next <=> page.on-next;
+    callback on-back <=> page.on-back;
+
+    page := GenericPage {
+        icon-source: @image-url("../images/adwaita/drive-harddisk.svg");
+        title: "Select installation disk";
+        subtitle: "Choose the disk where you want to install the system.";
+
+        ComboBox {
+            model: disks;
+        }
+    }
+}
