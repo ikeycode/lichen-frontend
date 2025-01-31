@@ -3,28 +3,34 @@ import { DropShadow } from "dropshadow.slint";
 import { ContentView } from "contentview.slint";
 
 // Client-side decorated window
-export component ClientWindow inherits Window
+export component ClientWindow inherits Rectangle
 {
     padding: 0px;
-    no-frame: true;
-    background: transparent;
+
+    callback request_close <=> titlebar.request_close;
+    callback request_minimize <=> titlebar.request_minimize;
+    callback request_toggle_maximize <=> titlebar.request_toggle_maximize;
+    callback drag_begin <=> titlebar.drag_begin;
 
     in-out property <brush> backdrop-color: white.with-alpha(0.9);
     in-out property <brush> backdrop-border-color: black.with-alpha(0.1);
+    in property<bool> maximized: false;
 
     DropShadow {
-        width: parent.width - 6px;
-        height: parent.height - 6px;
+        width: root.width - 6px;
+        height: root.height - 6px;
     }
+
     ContentView {
         backdrop-color: root.backdrop-color;
         backdrop-border-color: root.backdrop-border-color;
         width: parent.width - 12px;
         height: parent.height - 12px;
 
-        Titlebar {
+        titlebar := Titlebar {
             width: parent.width;
             height: 32px;
+            maximized: root.maximized;
         }
         @children
     }

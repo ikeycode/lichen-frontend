@@ -10,17 +10,19 @@ import { WindowControls } from "controls.slint";
 export component Titlebar {
     padding: 0px;
     callback drag_begin();
-    callback request_minimize();
-    callback request_close();
+    callback request_minimize <=> controls.request_minimize;
+    callback request_close <=> controls.request_close;
+    callback request_toggle_maximize <=> controls.request_toggle_maximize;
+    in property<bool> maximized;
 
     rta := TouchArea {
-        moved() => {
-            if (rta.pressed && self.enabled) {
+        pointer-event(event) => {
+            if (self.pressed && self.enabled && event.kind == PointerEventKind.move) {
                 drag_begin();
             }
         }
 
-        Rectangle {
+        rect := Rectangle {
             width: parent.width;
             padding: 0px;
             height: 32px;
@@ -33,7 +35,9 @@ export component Titlebar {
                 width: parent.width;
                 height: parent.height;
 
-                WindowControls {}
+                controls := WindowControls {
+                    maximized: root.maximized;
+                }
             }
         }
     }

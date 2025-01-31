@@ -2495,6 +2495,7 @@ dependencies = [
 name = "lichen-frontend"
 version = "0.1.0"
 dependencies = [
+ "i-slint-backend-winit",
  "slint",
  "slint-build",
 ]

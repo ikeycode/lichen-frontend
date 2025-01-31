@@ -4,12 +4,44 @@
 
 import { HorizontalBox, Palette } from "std-widgets.slint";
 
+// Window control button widget
+export component WindowButton inherits Rectangle {
+    in-out property<image> icon <=> img.source;
+    callback clicked <=> touch.clicked;
+
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    background: touch.has-hover ? Palette.foreground.with-alpha(0.1) : transparent;
+
+
+    animate background {
+        duration: 250ms;
+    }
+
+    img := Image {
+        source: @image-url("../../images/adwaita/window-minimize-symbolic.svg");
+        colorize: white.with-alpha(0.8);
+    }
+
+    touch := TouchArea {
+        mouse-cursor: MouseCursor.pointer;
+    }
+}
+
 // Styled window controls for the titlebar
 export component WindowControls {
+    callback request_minimize <=> min.clicked;
+    callback request_close <=> close.clicked;
+    callback request_toggle_maximize <=> max.clicked;
+
+    in property<bool> maximized;
+
     // Rounded corner on titlebar controls clipped to draw area of titlebar
     Rectangle {
         clip: true;
 
+        // super sized rounded corner
         Rectangle {
             background: @linear-gradient(180deg, black.with-alpha(0.6) 0%, black.with-alpha(0.4) 100%);
             border-radius: 12px;
@@ -25,6 +57,7 @@ export component WindowControls {
     height: 36px;
     padding: 0px;
 
+    // Window control buttons
     box := HorizontalBox {
         spacing: 8px;
         alignment: stretch;
@@ -33,58 +66,16 @@ export component WindowControls {
         padding-right: 12px;
         padding-top: 6px;
 
-        Rectangle {
-            width: 24px;
-            height: 24px;
-            background: min_ta.has-hover ? Palette.foreground.with-alpha(0.1) : transparent;
-            animate background {
-                duration: 250ms;
-            }
-            Image {
-                source: @image-url("../../images/adwaita/window-minimize-symbolic.svg");
-                colorize: white.with-alpha(0.8);
-            }
-            border-radius: 24px;
-            min_ta := TouchArea {
-                mouse-cursor: MouseCursor.pointer;
-                clicked => {
-                    root.visible = false;
-                }
-            }
+        min := WindowButton {
+            icon: @image-url("../../images/adwaita/window-minimize-symbolic.svg");
         }
 
-        Rectangle {
-            width: 24px;
-            height: 24px;
-            background: max_ta.has-hover ? Palette.foreground.with-alpha(0.1) : transparent;
-            animate background {
-                duration: 250ms;
-            }
-            Image {
-                source: @image-url("../../images/adwaita/window-maximize-symbolic.svg");
-                colorize: white.with-alpha(0.8);
-            }
-            border-radius: 24px;
-            max_ta := TouchArea {
-                mouse-cursor: MouseCursor.pointer;
-            }
+        max := WindowButton {
+            icon: maximized ? @image-url("../../images/adwaita/window-restore-symbolic.svg") : @image-url("../../images/adwaita/window-maximize-symbolic.svg");
         }
 
-        Rectangle {
-            width: 24px;
-            height: 24px;
-            background: clo_ta.has-hover ? red.with-alpha(0.1) : transparent;
-            animate background {
-                duration: 250ms;
-            }
-            Image {
-                source: @image-url("../../images/adwaita/window-close-symbolic.svg");
-                colorize: white.with-alpha(0.8);
-            }
-            border-radius: 24px;
-            clo_ta := TouchArea {
-                mouse-cursor: MouseCursor.pointer;
-            }
+        close := WindowButton {
+            icon: @image-url("../../images/adwaita/window-close-symbolic.svg");
         }
     }
 }
