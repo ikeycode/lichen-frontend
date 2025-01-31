@@ -21,23 +21,25 @@ export component Titlebar {
                 drag_begin();
             }
         }
+        width: parent.width - (24px * 3);
+        height: 32px;
+    }
 
-        rect := Rectangle {
-            width: parent.width;
+    rect := Rectangle {
+        width: parent.width;
+        padding: 0px;
+        height: 32px;
+        background: transparent;
+
+        HorizontalBox {
+            alignment: end;
+            spacing: 8px;
             padding: 0px;
-            height: 32px;
-            background: transparent;
+            width: parent.width;
+            height: parent.height;
 
-            HorizontalBox {
-                alignment: end;
-                spacing: 8px;
-                padding: 0px;
-                width: parent.width;
-                height: parent.height;
-
-                controls := WindowControls {
-                    maximized: root.maximized;
-                }
+            controls := WindowControls {
+                maximized: root.maximized;
             }
         }
     }
