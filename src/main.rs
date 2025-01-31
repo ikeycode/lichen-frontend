@@ -4,7 +4,10 @@
 
 slint::include_modules!();
 
-use i_slint_backend_winit::{winit, WinitWindowAccessor, WinitWindowEventResult};
+use i_slint_backend_winit::{
+    winit::{self},
+    WinitWindowAccessor, WinitWindowEventResult,
+};
 use slint::{platform::WindowEvent, BackendSelector, CloseRequestResponse};
 
 fn setup_wayland_integration(window: &MainWindow) {
