@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 fn main() {
-    let config = slint_build::CompilerConfiguration::new();
+    let config = slint_build::CompilerConfiguration::new()
+            .with_style("fluent-dark".to_owned());
     slint_build::compile_with_config("ui/index.slint", config)
         .expect("Failed to compile UI assets");
 }
