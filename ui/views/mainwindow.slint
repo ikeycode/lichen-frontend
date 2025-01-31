@@ -4,6 +4,8 @@
 
 import { ClientWindow } from "../components/index.slint";
 import { SplashView } from "splash.slint";
+import { LocalePage } from "locale.slint";
+import { HorizontalBox } from "std-widgets.slint";
 
 // Main application window
 export component MainWindow inherits Window
@@ -21,12 +23,45 @@ export component MainWindow inherits Window
     callback request_minimize <=> window.request_minimize;
     callback request_toggle_maximize <=> window.request_toggle_maximize;
     callback drag_begin <=> window.drag_begin;
+
     in property<bool> is_maximized: false;
+
+    in-out property<int> active_page: 0;
 
     window := ClientWindow {
         backdrop-color: @linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #2ecc71 100%);
         maximized: root.is_maximized;
 
-        SplashView {}
+        Rectangle {
+            padding: 0px;
+            width: parent.width;
+            height: parent.height;
+
+            HorizontalBox {
+                padding: 0px;
+                alignment: stretch;
+                height: parent.height;
+
+                x: -(active_page * parent.width);
+
+                animate x {
+                    duration: 400ms;
+                    easing: ease-out-quart;
+                }
+
+                SplashView {
+                    width: parent.width;
+                    height: parent.height;
+                    install() => {
+                        active_page = 1;
+                    }
+                }
+
+                LocalePage {
+                    width: parent.width;
+                    height: parent.height;
+                }
+            }
+        }
     }
 }

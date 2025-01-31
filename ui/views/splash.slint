@@ -3,16 +3,20 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import { AboutSlint, VerticalBox, HorizontalBox, Button, GridBox } from "std-widgets.slint";
-export component SplashView {
+export component SplashView inherits Rectangle {
 
     // Animation control
     out property<bool> show_intro : false;
     callback quit <=> quit.clicked;
     callback install <=> install.clicked;
 
+    padding: 0px;
+
     VerticalBox {
         alignment: start;
         spacing: 48px;
+        padding: 0px;
+
         HorizontalBox {
             alignment: center;
             logo := Image {
@@ -62,7 +66,7 @@ export component SplashView {
         }
         logo when show_intro: {
             logo.opacity: 1;
-            made_with.y: root.height - made_with.height - 48px;
+            made_with.y: root.height - 128px - 32px;
             txt.font-size: 24px;
             txt.opacity: 1;
             actions.opacity: 1;
