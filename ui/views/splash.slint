@@ -1,0 +1,87 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { AboutSlint, VerticalBox, HorizontalBox, Button, GridBox } from "std-widgets.slint";
+export component SplashView {
+
+    // Animation control
+    out property<bool> show_intro : false;
+    callback quit <=> quit.clicked;
+    callback install <=> install.clicked;
+
+    VerticalBox {
+        alignment: start;
+        spacing: 48px;
+        HorizontalBox {
+            alignment: center;
+            logo := Image {
+                source: @image-url("../images/serpentos-logo.svg");
+                colorize: white;
+                width: 192px;
+            }
+        }
+        txt := Text {
+            text: "Are you ready to install?";
+            horizontal-alignment: center;
+            font-size: 24px;
+            font-family: "Raleway";
+            color: white;
+        }
+
+        actions := HorizontalBox {
+            alignment: center;
+            GridBox {
+                spacing: 16px;
+                Row {
+                    quit := Button {
+                        text: "Continue testing with live desktop";
+                    }
+                }
+                Row {
+                    install := Button {
+                        primary: true;
+                        text: "Install Serpent OS to disk";
+                    }
+                }
+            }
+        }
+    }
+
+    made_with := AboutSlint {
+        height: 64px;
+    }
+
+    states [
+        no_logo when !show_intro: {
+            logo.opacity: 0;
+            made_with.y: root.height + made_with.height;
+            txt.opacity: 0;
+            txt.font-size: 4px;
+            actions.opacity: 0;
+        }
+        logo when show_intro: {
+            logo.opacity: 1;
+            made_with.y: root.height - made_with.height - 48px;
+            txt.font-size: 24px;
+            txt.opacity: 1;
+            actions.opacity: 1;
+            in {
+                animate logo.opacity { duration: 1.2s; easing: ease-out-quart; }
+                animate made_with.y { duration: 1.5s; easing: ease-out-quart; }
+                animate txt.opacity { delay: 0.6s; duration: 1.2s; }
+                animate txt.font-size { delay: 0.6s; duration: 1.2s; easing: ease-out-quart; }
+                animate actions.opacity { delay: 0.6s; duration: 1.2s; easing: ease-out-quart; }
+            }
+        }
+    ]
+
+    Timer {
+        running: true;
+        interval: 1200ms;
+        triggered() => {
+            show_intro = true;
+            self.running = false;
+        }
+    }
+}

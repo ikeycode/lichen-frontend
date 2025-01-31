@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import { ClientWindow } from "../components/index.slint";
+import { SplashView } from "splash.slint";
 
 // Main application window
 export component MainWindow inherits Window
@@ -13,8 +14,8 @@ export component MainWindow inherits Window
 
     preferred-width: 1024px;
     preferred-height: 768px;
-    min-width: 800px;
-    min-height: 600px;
+    min-width: 1024px;
+    min-height: 768px;
 
     callback request_close <=> window.request_close;
     callback request_minimize <=> window.request_minimize;
@@ -25,5 +26,7 @@ export component MainWindow inherits Window
     window := ClientWindow {
         backdrop-color: @linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #2ecc71 100%);
         maximized: root.is_maximized;
+
+        SplashView {}
     }
 }
