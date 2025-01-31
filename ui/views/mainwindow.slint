@@ -34,13 +34,14 @@ export component MainWindow inherits Window
 
         Rectangle {
             padding: 0px;
-            width: parent.width;
+            width: parent.width - 24px;
             height: parent.height;
 
             HorizontalBox {
                 padding: 0px;
-                alignment: stretch;
+                alignment: start;
                 height: parent.height;
+                width: parent.width;
 
                 x: -(active_page * parent.width);
 

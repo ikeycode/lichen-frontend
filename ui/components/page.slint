@@ -1,0 +1,46 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { HorizontalBox, VerticalBox } from "std-widgets.slint";
+
+// Generic page component
+export component GenericPage
+{
+    padding: 0px;
+
+    in-out property icon-source <=> img.source;
+    in-out property title <=> title.text;
+    in-out property subtitle <=> subtitle.text;
+
+    HorizontalBox {
+        alignment: start;
+        spacing: 96px;
+        padding: 0px;
+
+        VerticalBox {
+            alignment: center;
+            padding: 0px;
+            img := Image {
+                width: 256px;
+                padding: 96px;
+            }
+        }
+
+        VerticalBox {
+            alignment: start;
+            spacing: 16px;
+            padding: 0px;
+            title := Text {
+                font-size: 24px;
+            }
+
+            subtitle := Text {
+                text: "This will be used for the installer and the installed system.";
+                font-size: 16px;
+            }
+
+            @children
+        }
+    }
+}
