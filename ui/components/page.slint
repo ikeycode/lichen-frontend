@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import { HorizontalBox, VerticalBox } from "std-widgets.slint";
+import { HorizontalBox, VerticalBox, Button } from "std-widgets.slint";
 import { Backdrop } from "../theme.slint";
 
 // Generic page component
@@ -13,6 +13,11 @@ export component GenericPage inherits Rectangle
     in-out property icon-source <=> img.source;
     in-out property title <=> title.text;
     in-out property subtitle <=> subtitle.text;
+    in-out property can-go-back <=> back_button.visible;
+    in-out property can-go-next <=> next_button.visible;
+
+    callback on-back <=> back_button.clicked;
+    callback on-next <=> next_button.clicked;
 
     HorizontalBox {
         alignment: start;
@@ -21,8 +26,9 @@ export component GenericPage inherits Rectangle
         padding-left: 96px;
 
         VerticalBox {
-            alignment: center;
+            alignment: start;
             padding: 0px;
+            padding-top: 96px;
             img := Image {
                 width: 256px;
                 padding-right: 96px;
@@ -30,20 +36,38 @@ export component GenericPage inherits Rectangle
         }
 
         VerticalBox {
-            alignment: center;
+            alignment: space-around;
             spacing: 16px;
             padding: 0px;
-            title := Text {
-                font-size: 24px;
-                color <=> Backdrop.foreground;
+
+            VerticalBox {
+                alignment: stretch;
+                title := Text {
+                    font-size: 24px;
+                    color <=> Backdrop.foreground;
+                }
+
+                subtitle := Text {
+                    font-size: 16px;
+                    color: Backdrop.foreground.with-alpha(0.8);
+                }
+
+                @children
             }
 
-            subtitle := Text {
-                font-size: 16px;
-                color: Backdrop.foreground.with-alpha(0.8);
+            HorizontalBox {
+                alignment: end;
+                padding: 0px;
+                spacing: 12px;
+                back_button := Button {
+                    text: "Back";
+                }
+                next_button := Button {
+                    text: "Next";
+                    primary: true;
+                }
             }
-
-            @children
         }
+
     }
 }

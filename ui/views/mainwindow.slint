@@ -5,9 +5,10 @@
 import { ClientWindow } from "../components/index.slint";
 import { SplashView } from "splash.slint";
 import { LocalePage } from "locale.slint";
-import { HorizontalBox, Palette } from "std-widgets.slint";
+import { HorizontalBox, Palette, Button } from "std-widgets.slint";
 
 import { Backdrop } from "../theme.slint";
+import { DiskPage } from "disks.slint";
 
 // Main application window
 export component MainWindow inherits Window
@@ -29,6 +30,16 @@ export component MainWindow inherits Window
     in property<bool> is_maximized: false;
 
     in-out property<int> active_page: 0;
+    out property<bool> can-go-back: active_page > 1;
+    out property<bool> can-go-next: true;
+
+    function go_back() {
+        active_page -= 1;
+    }
+
+    function go_next() {
+        active_page += 1;
+    }
 
     window := ClientWindow {
         backdrop-color: Backdrop.setup;
@@ -63,6 +74,19 @@ export component MainWindow inherits Window
                 LocalePage {
                     width: parent.width;
                     height: parent.height;
+                    can-go-back <=> root.can-go-back;
+                    can-go-next <=> root.can-go-next;
+                    on-next => { root.go_next(); }
+                    on-back => { root.go_back(); }
+                }
+
+                DiskPage {
+                    width: parent.width;
+                    height: parent.height;
+                    can-go-back <=> root.can-go-back;
+                    can-go-next: root.can-go-next;
+                    on-next => { root.go_next(); }
+                    on-back => { root.go_back(); }
                 }
             }
         }

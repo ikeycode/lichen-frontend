@@ -12,8 +12,13 @@ export component LocalePage inherits Rectangle
     padding: 0px;
 
     in-out property<[string]> locales: ["🇺🇸 English (US)", "🇫🇷 Français", "🇩🇪 Deutsch", "🇪🇸 Español", "🇮🇹 Italiano", "🇵🇹 Português", "🇷🇺 Русский"];
+    in-out property can-go-back <=> page.can-go-back;
+    in-out property can-go-next <=> page.can-go-next;
 
-    GenericPage {
+    callback on-next <=> page.on-next;
+    callback on-back <=> page.on-back;
+
+    page := GenericPage {
         icon-source: @image-url("../images/morewaita/preferences-desktop-locale.svg");
         title: "Select your preferred language";
         subtitle: "This will be used for the installer and the installed system.";
