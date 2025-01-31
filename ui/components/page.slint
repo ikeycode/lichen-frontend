@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import { HorizontalBox, VerticalBox } from "std-widgets.slint";
+import { Backdrop } from "../theme.slint";
 
 // Generic page component
 export component GenericPage inherits Rectangle
@@ -34,10 +35,12 @@ export component GenericPage inherits Rectangle
             padding: 0px;
             title := Text {
                 font-size: 24px;
+                color <=> Backdrop.foreground;
             }
 
             subtitle := Text {
                 font-size: 16px;
+                color: Backdrop.foreground;
             }
 
             @children
