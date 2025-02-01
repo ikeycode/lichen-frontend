@@ -12,11 +12,6 @@ export component DiskPage inherits Rectangle
     padding: 0px;
 
     in-out property<[string]> disks: ["/dev/sda", "/dev/sdb", "/dev/nvme0n1"];
-    in-out property can-go-back <=> page.can-go-back;
-    in-out property can-go-next <=> page.can-go-next;
-
-    callback on-next <=> page.on-next;
-    callback on-back <=> page.on-back;
 
     page := GenericPage {
         icon-source: @image-url("../images/adwaita/drive-harddisk.svg");

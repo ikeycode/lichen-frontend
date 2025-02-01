@@ -32,7 +32,7 @@ export component MainWindow inherits Window
 
     in-out property<int> active_page: 0;
     out property<bool> can-go-back: active_page > 1;
-    out property<bool> can-go-next: true;
+    out property<bool> can-go-next: active_page > 0;
 
     window := ClientWindow {
         backdrop-color: Backdrop.setup;
@@ -40,8 +40,6 @@ export component MainWindow inherits Window
 
         pages := PageContainer {
             active_page <=> root.active_page;
-            width: parent.width - 24px;
-            height: parent.height;
 
             SplashView {
                 width: parent.width;
@@ -54,19 +52,29 @@ export component MainWindow inherits Window
             LocalePage {
                 width: parent.width;
                 height: parent.height;
-                can-go-back <=> root.can-go-back;
-                can-go-next <=> root.can-go-next;
-                on-next => { pages.go_next(); }
-                on-back => { pages.go_back(); }
             }
 
             DiskPage {
                 width: parent.width;
                 height: parent.height;
-                can-go-back <=> root.can-go-back;
-                can-go-next: root.can-go-next;
-                on-next => { pages.go_next(); }
-                on-back => { pages.go_back(); }
+            }
+        }
+
+        HorizontalBox {
+            alignment: end;
+            padding: 14px;
+            spacing: 14px;
+
+            back_button := Button {
+                text: "Back";
+                clicked => { pages.go_back(); }
+                visible: can-go-back;
+            }
+            next_button := Button {
+                text: "Next";
+                primary: true;
+                clicked => { pages.go_next(); }
+                visible: can-go-next;
             }
         }
     }
