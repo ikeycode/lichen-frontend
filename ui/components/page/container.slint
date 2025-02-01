@@ -1,0 +1,42 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { HorizontalBox } from "std-widgets.slint";
+
+// Page container component
+//
+// This component is used to contain multiple pages and switch between them
+// using a horizontal slide animation
+//
+// The active_page property is used to control which page is currently visible
+export component PageContainer inherits Rectangle
+{
+    in-out property<int> active_page: 0;
+
+    public function go_back() {
+        active_page -= 1;
+    }
+
+    public function go_next() {
+        active_page += 1;
+    }
+
+    padding: 0px;
+
+    HorizontalBox {
+        padding: 0px;
+        alignment: start;
+        height: parent.height;
+        width: parent.width;
+
+        x: -(active_page * parent.width);
+
+        animate x {
+            duration: 400ms;
+            easing: ease-out-quart;
+        }
+
+        @children
+    }
+}

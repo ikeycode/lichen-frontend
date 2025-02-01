@@ -9,6 +9,7 @@ import { HorizontalBox, Palette, Button } from "std-widgets.slint";
 
 import { Backdrop } from "../theme.slint";
 import { DiskPage } from "disks.slint";
+import { PageContainer } from "../components/page/index.slint";
 
 // Main application window
 export component MainWindow inherits Window
@@ -33,61 +34,39 @@ export component MainWindow inherits Window
     out property<bool> can-go-back: active_page > 1;
     out property<bool> can-go-next: true;
 
-    function go_back() {
-        active_page -= 1;
-    }
-
-    function go_next() {
-        active_page += 1;
-    }
-
     window := ClientWindow {
         backdrop-color: Backdrop.setup;
         maximized: root.is_maximized;
 
-        Rectangle {
-            padding: 0px;
+        pages := PageContainer {
+            active_page <=> root.active_page;
             width: parent.width - 24px;
             height: parent.height;
 
-            HorizontalBox {
-                padding: 0px;
-                alignment: start;
-                height: parent.height;
+            SplashView {
                 width: parent.width;
-
-                x: -(active_page * parent.width);
-
-                animate x {
-                    duration: 400ms;
-                    easing: ease-out-quart;
+                height: parent.height;
+                install() => {
+                    active_page = 1;
                 }
+            }
 
-                SplashView {
-                    width: parent.width;
-                    height: parent.height;
-                    install() => {
-                        active_page = 1;
-                    }
-                }
+            LocalePage {
+                width: parent.width;
+                height: parent.height;
+                can-go-back <=> root.can-go-back;
+                can-go-next <=> root.can-go-next;
+                on-next => { pages.go_next(); }
+                on-back => { pages.go_back(); }
+            }
 
-                LocalePage {
-                    width: parent.width;
-                    height: parent.height;
-                    can-go-back <=> root.can-go-back;
-                    can-go-next <=> root.can-go-next;
-                    on-next => { root.go_next(); }
-                    on-back => { root.go_back(); }
-                }
-
-                DiskPage {
-                    width: parent.width;
-                    height: parent.height;
-                    can-go-back <=> root.can-go-back;
-                    can-go-next: root.can-go-next;
-                    on-next => { root.go_next(); }
-                    on-back => { root.go_back(); }
-                }
+            DiskPage {
+                width: parent.width;
+                height: parent.height;
+                can-go-back <=> root.can-go-back;
+                can-go-next: root.can-go-next;
+                on-next => { pages.go_next(); }
+                on-back => { pages.go_back(); }
             }
         }
     }
