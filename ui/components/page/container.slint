@@ -24,19 +24,25 @@ export component PageContainer inherits Rectangle
 
     padding: 0px;
 
-    HorizontalBox {
-        padding: 0px;
-        alignment: start;
-        height: parent.height;
+    clip_region := Rectangle {
         width: parent.width;
+        height: parent.height;
+        clip: true;
 
-        x: -(active_page * parent.width);
+        HorizontalBox {
+            padding: 0px;
+            alignment: start;
+            height: parent.height;
+            width: parent.width;
 
-        animate x {
-            duration: 400ms;
-            easing: ease-out-quart;
+            x: -(active_page * parent.width);
+
+            animate x {
+                duration: 400ms;
+                easing: ease-out-quart;
+            }
+
+            @children
         }
-
-        @children
     }
 }
