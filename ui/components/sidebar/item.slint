@@ -18,6 +18,8 @@ export component SidebarItem inherits Rectangle {
 
     in-out property<bool> selected: false;
 
+    in-out property<brush> foreground: Palette.foreground;
+
     // Only emitted if the parent is interactive
     callback clicked();
 
@@ -38,7 +40,7 @@ export component SidebarItem inherits Rectangle {
 
     states [
         active when root.selected: {
-            background: Palette.selection-background.with-alpha(0.1);
+            background: Palette.selection-background.with-alpha(0.25);
             in {
                 animate * {
                     duration: 0.2s;
@@ -71,7 +73,7 @@ export component SidebarItem inherits Rectangle {
             text: item.text;
             font-size: 18px;
             font-weight: 400;
-            color: Backdrop.foreground;
+            color: root.foreground;
         }
     }
 }

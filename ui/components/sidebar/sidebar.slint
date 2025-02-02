@@ -29,6 +29,8 @@ export component Sidebar inherits Rectangle
     drop-shadow-color: Backdrop.shadow;
     drop-shadow-blur: 4px;
 
+    in-out property<brush> foreground: Palette.foreground;
+
     VerticalLayout {
         alignment: stretch;
         spacing: 0px;
@@ -45,6 +47,7 @@ export component Sidebar inherits Rectangle
                 item: item;
                 interactive: root.interactive;
                 index: index;
+                foreground <=> root.foreground;
                 clicked() => {
                     root.item-changed(index);
                 }

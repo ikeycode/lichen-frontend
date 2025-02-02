@@ -21,6 +21,11 @@ export component ClientWindow inherits Rectangle
     in-out property <brush> backdrop-color: white.with-alpha(0.9);
     in-out property <brush> backdrop-border-color: black.with-alpha(0.1);
     in property<bool> maximized: false;
+    in property<bool> sidebar-visible: true;
+    in-out property sidebar-model <=> sidebar.model;
+    in-out property sidebar-selected <=> sidebar.selected;
+    in-out property sidebar-background <=> sidebar.background;
+    in-out property sidebar-color <=> sidebar.foreground;
 
     DropShadow {
         width: root.width - 6px;
@@ -40,6 +45,18 @@ export component ClientWindow inherits Rectangle
 
             padding: 0px;
             spacing: 0px;
+
+            // Sidebar
+            sidebar := Sidebar {
+                width: root.sidebar-visible ? self.preferred-width : 0px;
+                height: parent.height;
+                visible: root.sidebar-visible;
+                opacity: self.visible ? 1.0 : 0.0;
+                animate opacity, width {
+                    duration: 0.3s;
+                    easing: ease-out;
+                }
+            }
 
             // Titlebar and content
             VerticalBox {
