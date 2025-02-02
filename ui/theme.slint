@@ -16,4 +16,11 @@ export global Backdrop
     in-out property<brush> foreground: Palette.color-scheme == ColorScheme.dark ?
         Colors.whitesmoke :
         Palette.selection-foreground;
+
+    in-out property<brush> sidebar: Palette.color-scheme == ColorScheme.dark ?
+        @linear-gradient(30deg, #1a1a1a 0%, #1d1d1d 100%) :
+        @linear-gradient(30deg, #0e1930 0%, #1c2f50 100%);
+
+    // Shadow color for consistent dark shadows
+    in-out property<color> shadow: #00000040;
 }

@@ -4,6 +4,7 @@
 
 import { IconTextItem } from "../../model/index.slint";
 import { Palette } from "std-widgets.slint";
+import { Backdrop } from "../../theme.slint";
 
 // SidebarItem component bound to IconTextItem model element
 export component SidebarItem inherits Rectangle {
@@ -14,6 +15,8 @@ export component SidebarItem inherits Rectangle {
 
     // Whether we emit clicks and look clickable
     in property<bool> interactive;
+
+    in-out property<bool> selected: false;
 
     // Only emitted if the parent is interactive
     callback clicked();
@@ -30,11 +33,27 @@ export component SidebarItem inherits Rectangle {
         }
     }
 
+    background: transparent;
+    border-radius: 0px;
+
+    states [
+        active when root.selected: {
+            background: Palette.selection-background.with-alpha(0.1);
+            in {
+                animate * {
+                    duration: 0.2s;
+                    easing: ease-in-out;
+                }
+            }
+        }
+    ]
+
     HorizontalLayout {
-        padding: 0px;
         spacing: 16px;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 32px;
+        padding-right: 48px;
         alignment: start;
 
         VerticalLayout {
@@ -45,13 +64,14 @@ export component SidebarItem inherits Rectangle {
                 source: item.icon;
                 width: 24px;
                 height: 24px;
-                colorize <=> txt.color;
             }
         }
 
         txt := Text {
             text: item.text;
-            font-size: 24px;
+            font-size: 18px;
+            font-weight: 400;
+            color: Backdrop.foreground;
         }
     }
 }

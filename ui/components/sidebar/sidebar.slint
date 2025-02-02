@@ -4,8 +4,10 @@
 
 import { IconTextItem } from "../../model/index.slint";
 import { SidebarItem } from "./item.slint";
+import { Palette } from "std-widgets.slint";
+import { Backdrop } from "../../theme.slint";
 
-export component Sidebar
+export component Sidebar inherits Rectangle
 {
     // Our model is simply a list of IconTextItems
     in property<[IconTextItem]> model;
@@ -21,6 +23,11 @@ export component Sidebar
     // Callback for when the selected item changes
     // The index is the same as the model index
     callback item-changed(int /* index */);
+
+    padding: 0px;
+    background: Backdrop.sidebar;
+    drop-shadow-color: Backdrop.shadow;
+    drop-shadow-blur: 4px;
 
     VerticalLayout {
         alignment: stretch;
@@ -41,6 +48,7 @@ export component Sidebar
                 clicked() => {
                     root.item-changed(index);
                 }
+                selected: index == root.selected;
             }
         }
 

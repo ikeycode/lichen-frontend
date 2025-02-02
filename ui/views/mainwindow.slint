@@ -39,24 +39,25 @@ export component MainWindow inherits Window
         maximized: root.is_maximized;
 
         pages := PageContainer {
+            horizontal-stretch: 2;
             active_page <=> root.active_page;
 
             SplashView {
-                width: parent.width;
-                height: parent.height;
+                width: pages.width;
+                height: pages.height;
                 install() => {
                     active_page = 1;
                 }
             }
 
             LocalePage {
-                width: parent.width;
-                height: parent.height;
+                width: pages.width;
+                height: pages.height;
             }
 
             DiskPage {
-                width: parent.width;
-                height: parent.height;
+                width: pages.width;
+                height: pages.height;
             }
         }
 
