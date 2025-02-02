@@ -1,0 +1,57 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { IconTextItem } from "../../model/index.slint";
+import { Palette } from "std-widgets.slint";
+
+// SidebarItem component bound to IconTextItem model element
+export component SidebarItem inherits Rectangle {
+    in property<IconTextItem> item;
+
+    // Assigned index in the parent Sidebar
+    in property<int> index;
+
+    // Whether we emit clicks and look clickable
+    in property<bool> interactive;
+
+    // Only emitted if the parent is interactive
+    callback clicked();
+
+    // Touch area for the item
+    touch := TouchArea {
+        width: parent.width;
+        height: parent.height;
+        mouse-cursor: root.interactive ? MouseCursor.pointer : MouseCursor.default;
+        clicked() => {
+            if (root.interactive) {
+                root.clicked();
+            }
+        }
+    }
+
+    HorizontalLayout {
+        padding: 0px;
+        spacing: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        alignment: start;
+
+        VerticalLayout {
+            alignment: center;
+            padding: 0px;
+            spacing: 0px;
+            Image {
+                source: item.icon;
+                width: 24px;
+                height: 24px;
+                colorize <=> txt.color;
+            }
+        }
+
+        txt := Text {
+            text: item.text;
+            font-size: 24px;
+        }
+    }
+}

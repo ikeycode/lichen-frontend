@@ -1,0 +1,57 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import { IconTextItem } from "../../model/index.slint";
+import { SidebarItem } from "./item.slint";
+
+export component Sidebar
+{
+    // Our model is simply a list of IconTextItems
+    in property<[IconTextItem]> model;
+
+    // Currently selected item
+    in-out property<int> selected: 0;
+
+    // If set to interactive, the sidebar will allow selection
+    // and emit the selected item index
+    // The consumer of the sidebar should then update the selected property.
+    in property<bool> interactive: false;
+
+    // Callback for when the selected item changes
+    // The index is the same as the model index
+    callback item-changed(int /* index */);
+
+    VerticalLayout {
+        alignment: stretch;
+        spacing: 0px;
+        padding: 0px;
+
+        // First layout is for the sidebar items
+        VerticalLayout {
+            alignment: start;
+            spacing: 0px;
+            padding: 0px;
+
+            // Iterate over the model and create a SidebarItem for each
+            for item[index] in root.model: SidebarItem {
+                item: item;
+                interactive: root.interactive;
+                index: index;
+                clicked() => {
+                    root.item-changed(index);
+                }
+            }
+        }
+
+        // Last layout is for any custom items passed in
+        // i.e. informational widgets or "MadeWithSlint" etc.
+        VerticalLayout {
+            alignment: end;
+            spacing: 0px;
+            padding: 0px;
+
+            @children
+        }
+    }
+}
