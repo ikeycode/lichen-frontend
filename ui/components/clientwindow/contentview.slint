@@ -18,11 +18,18 @@ export component ContentView
         padding: 0px;
         border-color: backdrop-border-color;
         border-width: 1px;
+        border-radius: 8px;
     }
 
-    VerticalBox {
-        alignment: stretch;
+    // clip the content
+    Rectangle {
+        width: parent.width;
+        height: parent.height;
         padding: 0px;
+        border-width: 0px;
+        background: transparent;
+        border-radius: 8px;
+        clip: true;
 
         @children
     }

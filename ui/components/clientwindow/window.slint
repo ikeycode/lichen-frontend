@@ -5,6 +5,7 @@
 import { Titlebar } from "titlebar.slint";
 import { DropShadow } from "dropshadow.slint";
 import { ContentView } from "contentview.slint";
+import { HorizontalBox, VerticalBox } from "std-widgets.slint";
 
 // Client-side decorated window
 export component ClientWindow inherits Rectangle
@@ -31,11 +32,26 @@ export component ClientWindow inherits Rectangle
         width: parent.width - 12px;
         height: parent.height - 12px;
 
-        titlebar := Titlebar {
+        HorizontalBox {
             width: parent.width;
-            height: 32px;
-            maximized: root.maximized;
+            height: parent.height;
+
+            padding: 0px;
+            spacing: 0px;
+
+            // Titlebar and content
+            VerticalBox {
+                horizontal-stretch: 1;
+                alignment: stretch;
+                spacing: 0px;
+                padding: 0px;
+
+                titlebar := Titlebar {
+                    height: 32px;
+                    maximized: root.maximized;
+                }
+                @children
+            }
         }
-        @children
     }
 }

@@ -12,8 +12,8 @@ export global Backdrop
         @linear-gradient(135deg, #1a1a1a 0%, #2c3e50 50%, #2c2c2c 100%) :
         @linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #2ecc71 100%);
 
-        // Backdrop's foreground:s some kinda white.
-        in-out property<brush> foreground: Palette.color-scheme == ColorScheme.dark ?
-            Colors.whitesmoke :
-            Palette.selection-foreground;
+    // Backdrop's foreground:s some kinda white.
+    in-out property<brush> foreground: Palette.color-scheme == ColorScheme.dark ?
+        Colors.whitesmoke :
+        Palette.selection-foreground;
 }
