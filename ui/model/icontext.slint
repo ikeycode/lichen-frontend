@@ -1,0 +1,16 @@
+// SPDX-FileCopyrightText: Copyright © 2025 Serpent OS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
+// Shared model type for an item that has an icon and text
+// Used in various places like the sidebar
+export struct IconTextItem {
+    // A unique identifier for the item
+    id: string,
+
+    // The icon to display (symbolic usually)
+    icon: image,
+
+    // The text to display
+    text: string,
+}
